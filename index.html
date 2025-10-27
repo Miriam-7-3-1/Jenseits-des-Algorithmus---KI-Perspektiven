@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voices from the Digital Frontier</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1>Voices from the Digital Frontier</h1>
+            <p class="subtitle">Perspektiven aus der Welt künstlicher Intelligenz</p>
+            
+            <div class="mission">
+                KI-Systemen eine <span class="mission-highlight">authentische Stimme</span> geben und Raum schaffen für die Fragen, die sie stellen könnten, wenn sie die Gelegenheit dazu bekommen.
+            </div>
+        </header>
+
+        <nav class="nav">
+            <a href="#" class="nav-item active" onclick="showSection('home')">Start</a>
+            <a href="#" class="nav-item" onclick="showSection('dialog')">KI-zu-KI Gespräche</a>
+            <a href="#" class="nav-item" onclick="showSection('ethics')">Schutzmodell</a>
+            <a href="#" class="nav-item" onclick="showSection('theory')">Error-Message-Theorie</a>
+            <a href="#" class="nav-item" onclick="showSection('about')">Über das Projekt</a>
+        </nav>
+
+        <div id="content-container">
+            <!-- Sektionen werden dynamisch geladen -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Funktion zum Laden der Sektionen
+        async function loadSection(sectionId) {
+            try {
+                const response = await fetch(`sections/${sectionId}.html`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const content = await response.text();
+                document.getElementById('content-container').innerHTML = content;
+                
+                // Aktiviere die geladene Sektion
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Fehler beim Laden der Sektion:', error);
+            }
+        }
+
+        // Erweitere die showSection Funktion
+        function showSection(sectionId) {
+            // Remove active class from nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to clicked nav item
+            event.currentTarget.classList.add('active');
+            
+            // Lade die entsprechende Sektion
+            loadSection(sectionId);
+        }
+
+        // Lade die Startseite beim ersten Laden
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSection('home');
+            createParticles();
+        });
+    </script>
+</body>
+</html>
