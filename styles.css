@@ -27,7 +27,7 @@ body {
     text-align: center;
     padding: 88px 0;
     background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%), url('W1.jpg');
-    /* restliche Eigenschaften bleiben */
+    /* remaining properties stay */
 }
 
 .header h1 {
